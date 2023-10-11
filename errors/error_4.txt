@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+	8: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:19:in `<main>'
+	7: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:358:in `<class:MainMenu>'
+	6: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:358:in `new'
+	5: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:60:in `initialize'
+	4: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:64:in `main_menu'
+	3: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:64:in `loop'
+	2: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:69:in `block in main_menu'
+	1: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:243:in `set_route_for_train'
+/Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/train.rb:40:in `set_route': undefined method `take_train' for :Chel:Symbol (NoMethodError)

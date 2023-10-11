@@ -31,7 +31,7 @@ class Wagon
 
   attr_writer :occupied_volume
 
-  def validate!(errors = []) # raise exceptions
+  def validate!(errors = []) # rai  se exceptions
     errors << "Volume can't be nil" if volume.nil?
     errors << "Volume can't be zero" if volume.zero?
     errors << "Volume must be positive" if volume.to_f.negative?

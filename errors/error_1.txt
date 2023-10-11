@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+	11: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:19:in `<main>'
+	10: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:283:in `<class:MainMenu>'
+	 9: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:283:in `new'
+	 8: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:55:in `initialize'
+	 7: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:59:in `main_menu'
+	 6: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:59:in `loop'
+	 5: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:64:in `block in main_menu'
+	 4: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:223:in `set_route_for_train'
+	 3: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:276:in `select_from_collection'
+	 2: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:272:in `show_collection'
+	 1: from /Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:272:in `each_with_index'
+/Users/alexandersinelnik/RubymineProjects/RussianRailways v.0.5/main_menu.rb:272:in `each': wrong number of arguments (given 1, expected 0) (ArgumentError)

@@ -17,9 +17,6 @@ require_relative 'cargo_train'
 require_relative 'passenger_train'
 
 class MainMenu
-  # NUMBER_TRAIN_FORMAT = /^[a-z\d]{3}-*[a-z\d]{2}$/.freeze # example: av3a3
-  # NUMBER_WAGON_FORMAT = /^[a-z\d]{1}[a-z\d]{1}?$/.freeze # example: a2
-
   include Constants
 
   MENU = [
@@ -27,14 +24,15 @@ class MainMenu
     { index: 2, title: "create new train", action: :create_new_train },
     { index: 3, title: "create new wagon", action: :create_new_wagon },
     { index: 4, title: "create new route and manage it", action: :manage_route },
-    { index: 5, title: "set route for train", action: :set_route_for_train },
-    { index: 6, title: "add wagon to the train", action: :add_wagon_to_train },
+    { index: 5, title: "set route for train", action: :set_route },
+    { index: 6, title: "add wagon to the train", action: :add_wagons_to_train },
     { index: 7, title: "remove wagon from train", action: :remove_wagon_from_train },
     { index: 8, title: "move train on the route", action: :move_train_on_route },
     { index: 9, title: "show stations and trains at the station", action: :show_station_and_trains },
     { index: 10, title: "show train and wagons on train", action: :show_train_and_wagons },
     { index: 11, title: "book place in wagon", action: :take_place },
-    { index: 12, title: "occupy volume in wagon", action: :accupy_volume }
+    { index: 12, title: "occupy volume in wagon", action: :accupy_volume },
+    { index: 13, title: "call big_list", action: :big_list }
   ].freeze
 
   MENU_ROUTE = [
@@ -52,6 +50,7 @@ class MainMenu
     @stations = []
     @routes = []
     @trains = []
+    @wagons = []
     main_menu
   end
 
@@ -67,7 +66,7 @@ class MainMenu
     end
   end
 
-  private
+  # private
 
   def create_new_station # create new station
     puts "Enter new station name -> "
@@ -97,7 +96,6 @@ class MainMenu
   def get_number_train
     puts "Enter new train number"
     number = gets.chomp.to_s
-    # raise "Invalid number! Please, repeat!" if number !~ /^[a-z\d]{3}-*[a-z\d]{2}$/
     raise "Invalid number! Please, repeat!" if number !~ NUMBER_TRAIN_FORMAT
 
     number
@@ -127,7 +125,6 @@ class MainMenu
     puts "Enter wagon number"
     number = gets.chomp.to_s
     raise "Invalid number! Please, repeat!" if number !~ NUMBER_WAGON_FORMAT
-    # raise "Invalid number! Please, repeat!" if number !~ /^[a-z\d]{1}[a-z\d]{1}?$/
 
     number
   rescue RuntimeError => e
@@ -169,11 +166,11 @@ class MainMenu
   def create_wagon(type, number, volume)
     case type
     when 1
-      wagon = PassengerWagon.new(number, volume)
+      @wagons << PassengerWagon.new(number, volume)
     when 2
-      wagon = CargoWagon.new(number, volume)
+      @wagons << CargoWagon.new(number, volume)
     end
-    puts "New wagon created: #{wagon}"
+    puts "New wagon created with number: #{number}"
   end
 
   def take_place
@@ -219,30 +216,28 @@ class MainMenu
     route.delete_station(station)
   end
 
-  def set_route_for_train
+  def set_route
     train = select_from_collection(@trains)
     route = select_from_collection(@routes)
     train.set_route(route)
   end
 
   def add_wagons_to_train
-    puts "Enter name of object class train for add wagons"
-    train = gets.chomp.to_sym
-    puts "Enter name of object class wagons for add to train"
-    wagons = gets.chomp.to_sym
-    train.remove_wagon(wagons)
-    puts "Error, train not stop!" unless speed.zero?
-    puts "Error of type carriages" unless train.type == wagons.type
+    puts "Enter train name"
+    usr_train = gets.chomp.to_sym
+    puts "Enter wagon name"
+    usr_wagon = gets.chomp.to_sym
+    find_in_history(usr_train).add_wagon(find_in_history(usr_wagon))
   end
 
   def remove_wagons_from_train
     puts "Enter name of object class train for remove wagons"
     train = gets.chomp.to_sym
     puts "Enter name of object class wagons for remove from train"
-    wagos = gets.chomp.to_sym
-    train.remove_wagon(wagos)
+    wagons = gets.chomp.to_sym
+    train.remove_wagon(wagons)
     puts "Error, train not stop!" unless speed.zero?
-    puts "Error of type carriages" unless train.type == wagos.type
+    puts "Error of type carriages" unless train.type == wagons.type
   end
 
   def move_train_on_route
@@ -253,12 +248,12 @@ class MainMenu
     send(need_item[:action])
   end
 
-  def move_forward # conflict?
+  def move_forward
     train = select_from_collection(@trains)
     train.move_forward
   end
 
-  def move_back # conflict?
+  def move_back
     train = select_from_collection(@trains)
     train.move_back
   end
@@ -281,7 +276,7 @@ class MainMenu
   end
 
   def show_collection(collection)
-    collection.each_with_index(1) { |item, index| puts "#{index}: #{item}"}
+    collection.each.with_index(1) { |item, index| puts "#{index}: #{item}" }
   end
 
   def select_from_collection(collection)
@@ -290,6 +285,13 @@ class MainMenu
     return if index.negative?
 
     collection[index]
+  end
+
+  def big_list
+    puts @trains
+    puts @stations
+    puts @routes
+    puts @wagons
   end
 
   MainMenu.new

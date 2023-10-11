@@ -4,6 +4,7 @@ require_relative 'modules/validate'
 require_relative 'modules/instance_counter'
 require_relative 'modules/manufacturer'
 require_relative 'modules/constants'
+require_relative 'station'
 
 class Train
   include Validate
